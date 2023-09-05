@@ -1,0 +1,35 @@
+### Create new Board
+POST http://localhost:8080/api/post
+Content-Type: application/json
+
+{
+  "author":"author",
+  "contents":"contents",
+  "password":"password",
+  "title":"title"
+}
+
+### Get List
+GET http://localhost:8080/api/posts
+
+### UPDATE
+PUT http://localhost:8080/api/board/8
+Content-Type: application/json
+
+{
+  "author":"한국인111",
+  "contents":"수정완료",
+  "password":"korea5",
+  "title":"수정하자."
+}
+
+### Get one
+GET http://localhost:8080/api/board/3
+
+### Delete one
+DELETE http://localhost:8080/api/board/2
+Content-Type: application/json
+
+{
+  "password":"password"
+}
