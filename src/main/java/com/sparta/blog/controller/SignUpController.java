@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class SignUpController {
-    private final UserDataRepository userDataRepository;
     private final UserDataService userDataService;
 
     public SignUpController(UserDataRepository userDataRepository, UserDataService userDataService) {
-        this.userDataRepository = userDataRepository;
         this.userDataService = userDataService;
     }
 

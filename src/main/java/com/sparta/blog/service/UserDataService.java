@@ -50,4 +50,12 @@ public class UserDataService {
             throw new ValidationException("Exist Id");
         }
     }
+    public  boolean login(SignUpRequestDto data)
+    {
+        var target = userDataRepository.findByUsername(data.getUsername());
+        if (target.isPresent())
+            return target.get().getPassword().equals(data.getPassword());
+        else
+            return false;
+    }//========예외 처리로 바꾸기
 }
