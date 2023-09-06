@@ -3,6 +3,7 @@ package com.sparta.blog.service;
 import com.sparta.blog.Provider.JwtUtil;
 import com.sparta.blog.Security.EncoderConfig;
 import com.sparta.blog.dto.BoardDeleteRequestDto;
+import com.sparta.blog.dto.BoardInfoResponseDto;
 import com.sparta.blog.dto.BoardRequestDto;
 import com.sparta.blog.dto.BoardResponseDto;
 import com.sparta.blog.entity.Board;
@@ -29,9 +30,14 @@ public class BoardService {
 
 
     //    2. 전체 게시글 목록 조회 API
-    public List<BoardResponseDto> getBoard() {
+    public List<BoardInfoResponseDto> getBoard() {
         // DB 조회
-        return boardRepository.findAllByOrderByModifiedAtDesc().stream().map(BoardResponseDto::new).toList();
+        var result = boardRepository.findAllByOrderByModifiedAtDesc().stream().map(BoardInfoResponseDto::new).toList();
+        for (var v : result)
+        {
+            v.tryUserName(userDataRepository);
+        }
+        return result;
     }
 
     //    3. 게시글 작성 API
@@ -51,6 +57,12 @@ public class BoardService {
         Board board = boardRepository.findBoardByBoardId(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
         return new BoardResponseDto(board);
+    }
+    public BoardInfoResponseDto getBoardInfoById(Long id) {
+        Board board = boardRepository.findBoardByBoardId(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시물이 존재하지 않습니다"));
+
+        return new BoardInfoResponseDto(board).tryUserName(userDataRepository);
     }
 
 //    5. 선택한 게시글 수정 API

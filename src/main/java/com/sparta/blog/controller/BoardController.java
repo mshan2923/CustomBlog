@@ -2,6 +2,7 @@ package com.sparta.blog.controller;
 
 import com.sparta.blog.Provider.JwtUtil;
 import com.sparta.blog.dto.BoardDeleteRequestDto;
+import com.sparta.blog.dto.BoardInfoResponseDto;
 import com.sparta.blog.dto.BoardRequestDto;
 import com.sparta.blog.dto.BoardResponseDto;
 import com.sparta.blog.service.BoardService;
@@ -21,10 +22,10 @@ public class BoardController {
     private final JwtUtil jwtUtil;
 
     // 1.전체 게시글 조회
-    @GetMapping("/posts")
-    public List<BoardResponseDto> getBoard() {
+    @GetMapping("/boards")
+    public List<BoardInfoResponseDto> getBoard() {
         return boardService.getBoard();
-    }
+    }//선택한 글 , 이거랑 유저 이름 리턴해야됨
 
     // 2.게시글 작성
     // Json형식으로 요청
@@ -47,10 +48,10 @@ public class BoardController {
 
     // 3. 선택한 게시글 조회 API
     @GetMapping("/board/{id}")
-    public ResponseEntity<BoardResponseDto> getBoardById(@PathVariable Long id) {
+    public ResponseEntity<BoardInfoResponseDto> getBoardById(@PathVariable Long id) {
 
         try {
-            return ResponseEntity.ok(boardService.getBoardById(id));
+            return ResponseEntity.ok(boardService.getBoardInfoById(id));
         }catch (Exception e)
         {
             return ResponseEntity.notFound().build();
