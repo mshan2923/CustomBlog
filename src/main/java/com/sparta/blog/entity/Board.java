@@ -21,6 +21,7 @@ public class Board extends Timestamped{
     private String title;
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
+    @Deprecated
     @Column(name = "author", nullable = false)
     private String author;
 
