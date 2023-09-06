@@ -64,7 +64,7 @@ public class JwtUtil {
                         .claim(AUTHORIZATION_KEY, role) // 사용자 권한
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
                         .setIssuedAt(date) // 발급일
-                        .signWith(key, signatureAlgorithm) // 암호화 알고리즘// jjwt 10 버전 이후 기능
+                        .signWith(key, signatureAlgorithm) // 암호화 알고리즘// jjwt 0.10 버전 이후 기능
                         .compact();
     }
 

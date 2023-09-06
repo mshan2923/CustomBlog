@@ -36,16 +36,14 @@ public class SignUpController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("bindingResult.getAllErrors()");
         }
 
-        boolean result = false;
 
         try {
-            result = userDataService.registUser(signUpRequestDto);
+            return userDataService.registUser(signUpRequestDto)? ResponseEntity.ok("Register User")
+                    : ResponseEntity.badRequest().body("Already Created");
         }
         catch (Exception e)
         {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return result? ResponseEntity.status(HttpStatus.OK).body("Registed User")
-            : ResponseEntity.status(HttpStatus.CREATED).body("Created User");
     }
 }
