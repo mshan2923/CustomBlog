@@ -75,15 +75,18 @@ public class BoardController {
 
     // 5. 선택한 게시글 삭제(password 일치)
     @DeleteMapping("/board/{id}")
-    public boolean deleteBoard(@PathVariable Long id, @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String userName){
+    public ResponseEntity<String> deleteBoard(@PathVariable Long id, @CookieValue(JwtUtil.AUTHORIZATION_HEADER) String userName){
         //@RequestBody BoardDeleteRequestDto boardDeleteRequestDto
         //return boardService.deleteBoardByPassword(id, boardDeleteRequestDto);
 
         try {
-            return boardService.deleteBoardByToken(id, userName);
+            if (boardService.deleteBoardByToken(id, userName))
+                return ResponseEntity.ok("제거 완료");
+            else
+                return ResponseEntity.badRequest().body("잘못된 요청");
         }catch (Exception e)
         {
-            return false;
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

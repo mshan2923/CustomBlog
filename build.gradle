@@ -34,12 +34,14 @@ dependencies {
     //validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     //JWT
-    //implementation 'io.jsonwebtoken:jjwt-root:0.11.5'//(0.11.5) 이거 버전문제 이였음 , 버전 완성 기능 있음
+    //implementation 'io.jsonwebtoken:jjwt-root:0.11.5'//(0.9.1) 이거 버전문제 이였음 , 버전 완성 기능 있음
     compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'//For Fix bug
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

@@ -23,23 +23,27 @@ public class LoginController {
     private ResponseEntity<String> OnLogin(@RequestBody SignUpRequestDto loginData, HttpServletResponse res)
     {
         //return userDataService.login(loginData);
-        // Jwt 생성
-        String token = jwtUtil.createToken(loginData.getUsername(), UserRoleEnum.USER);
 
-        // Jwt 쿠키 저장
-        jwtUtil.addJwtToCookie(token, res);
-        //return ResponseEntity.ok(token);
-        // 토큰 리턴시 탈취
-        return ResponseEntity.ok("로그인 성공");//================로그인에서 존재한 회원인지 구분 없음
+        try {
+            if (userDataService.login(loginData))
+            {
+                // Jwt 생성
+                String token = jwtUtil.createToken(loginData.getUsername(), UserRoleEnum.USER);
+
+                // Jwt 쿠키 저장
+                jwtUtil.addJwtToCookie(token, res);
+                //return ResponseEntity.ok(token);
+                // 토큰 리턴시 탈취
+                return ResponseEntity.ok("로그인 성공");
+            }else
+            {
+                return ResponseEntity.badRequest().body("비밀번호 틀림");
+            }
+        }catch (Exception e)
+        {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
-
-    @PostMapping("/cookie")
-    private void tryCookie(@CookieValue(JwtUtil.AUTHORIZATION_HEADER) String vaule)
-    {
-
-        System.out.println("------------ Cookie : " + vaule + " \n " + jwtUtil.getUserInfoFromToken(jwtUtil.substringToken(vaule)).getSubject());
-
-    }
-
 
 }

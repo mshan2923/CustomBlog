@@ -1,5 +1,6 @@
 package com.sparta.blog.entity;
 
+import com.sparta.blog.Security.EncoderConfig;
 import com.sparta.blog.dto.SignUpRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,6 +28,11 @@ public class UserData extends Timestamped {
     {
         username = data.getUsername();
         password = data.getPassword();
+    }
+    public UserData(SignUpRequestDto data, String newPw)
+    {
+        username = data.getUsername();
+        password = newPw;
     }
 
 
