@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotBlank;
+
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
 @Getter
 //@Setter
@@ -17,7 +20,7 @@ public class UserData extends Timestamped {
     private Long userid;
 
     @Column(nullable = false)
-    //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{4,10}$", message = "조건 미충족")
+    //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{4,10}$", message = "조건 미충족")//예외 처리가...
     private String username;
 
     //@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,15}$", message = "조건 미충족")
